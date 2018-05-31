@@ -15,7 +15,7 @@ class GridViewController: UIViewController {
     private var minVerticalSpace: CGFloat = 10
     private var minHorizontalSpace: CGFloat = 10
     private var animationDuration: TimeInterval = 0.5
-    private var gridCellSize: CGSize!
+    private var gridCellSize = CGSize(width: 200, height: 50)
     
     private var collectionViewDB = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
     
@@ -24,12 +24,6 @@ class GridViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         gridCollectionView.invalidateIntrinsicContentSize()
         gridCollectionView.reloadData()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        gridCellSize == nil ? calculateCellsDefaultSize() : ()
     }
     
 }
@@ -50,16 +44,6 @@ extension GridViewController: ConfigurablesProtocol {
         minVerticalSpace = minVerticalSpacing
         
         gridCollectionView.invalidateIntrinsicContentSize()
-        gridCollectionView.reloadData()
-    }
-    
-    private func calculateCellsDefaultSize(){
-        let defaultColumns:CGFloat = (UIDevice.current.orientation == UIDeviceOrientation.portrait || UIDevice.current.orientation == UIDeviceOrientation.portraitUpsideDown) ? 2 : 13
-        let totalElementsFloat = CGFloat(collectionViewDB.count)
-        let cellWidth = (gridCollectionView.bounds.width - (minHorizontalSpace * (defaultColumns - 1))) / defaultColumns
-        let cellHeight = ((gridCollectionView.bounds.height - (minVerticalSpace * (ceil(totalElementsFloat / defaultColumns) - 1))) * CGFloat(defaultColumns)) / totalElementsFloat
-        
-        gridCellSize = CGSize(width: cellWidth, height: cellHeight)
         gridCollectionView.reloadData()
     }
     
@@ -125,7 +109,6 @@ extension GridViewController {
         animateCollectionView { [weak self] in
             self?.gridCollectionView.insertItems(at: indexPaths)
         }
-        
         return true
     }
     
@@ -158,8 +141,6 @@ extension GridViewController {
         }
         return true
     }
-    
-    
     private func find(element: String, oldSection: Int = 0, andMoveTo newIndex: Int, newSection: Int = 0) -> Bool {
         guard newIndex >= 0, let oldIndex = collectionViewDB.index(of: element) else { return false }
         collectionViewDB.remove(at: oldIndex)
@@ -190,7 +171,7 @@ extension GridViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
         collectionViewDB.remove(at: indexPath.row)
-        UIView.transition(with: cell!, duration: animationDuration, options: [.transitionFlipFromBottom], animations: {
+        UIView.transition(with: cell!, duration: animationDuration, options: [.transitionFlipFromRight], animations: {
             collectionView.deleteItems(at: [indexPath])
         }, completion: nil)
     }
@@ -200,7 +181,7 @@ extension GridViewController: UICollectionViewDataSource {
 extension GridViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return gridCellSize ?? CGSize.zero
+        return gridCellSize
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return minVerticalSpace
