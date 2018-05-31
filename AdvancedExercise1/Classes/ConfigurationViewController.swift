@@ -9,147 +9,144 @@
 import UIKit
 
 
+enum ConfigurationError: Error {
+    case wrongInput(setting: String)
+    case validation(String)
+}
+
 protocol ConfigurablesProtocol: NSObjectProtocol {
-    func setSettings(animationDuration: TimeInterval, elementSize: CGSize, horizontalSpacing: CGFloat, verticalSpacing: CGFloat)
+    func update(animationDuration: TimeInterval, gridCellSize: CGSize, minHorizontalSpacing: CGFloat, minVerticalSpacing: CGFloat)
 }
 
 
 class ConfigurationViewController: UIViewController {
 
-    enum TagValues: Int {
-        case animationDurationTextField
-        case elementCellWidthTextField
-        case elementCellHeightTextField
-        case horizontalSpacingTextField
-        case verticalSpacingTextField
-    }
-    
-    
-    
-    
-    @IBOutlet weak private var animationDurationTextField: UITextField! {
-        didSet {  animationDurationTextField.tag = TagValues.animationDurationTextField.rawValue  }
-    }
-    @IBOutlet weak private var elementCellWidthTextField: UITextField! {
-        didSet {  elementCellWidthTextField.tag = TagValues.elementCellWidthTextField.rawValue  }
-    }
-    @IBOutlet weak private var elementCellHeightTextField: UITextField! {
-        didSet {  elementCellHeightTextField.tag = TagValues.elementCellHeightTextField.rawValue  }
-    }
-    @IBOutlet weak private var horizontalSpacingTextField: UITextField! {
-        didSet {  horizontalSpacingTextField.tag = TagValues.horizontalSpacingTextField.rawValue  }
-    }
-    @IBOutlet weak private var verticalSpacingTextField: UITextField! {
-        didSet {  verticalSpacingTextField.tag = TagValues.verticalSpacingTextField.rawValue  }
-    }
-    
-    
     weak var delegate: ConfigurablesProtocol?
     
-    var animationDuration: TimeInterval!
-    var elementSize: CGSize!
-    var minimumHorizontalSpacing: CGFloat!
-    var minimumVerticalSpacing: CGFloat!
+    @IBOutlet weak private var animationDurationTextField: UITextField!
+    @IBOutlet weak private var gridCellWidthTextField: UITextField!
+    @IBOutlet weak private var gridCellHeightTextField: UITextField!
+    @IBOutlet weak private var minHorizontalSpacingTextField: UITextField!
+    @IBOutlet weak private var minVerticalSpacingTextField: UITextField!
+    
+    private var animationDuration: TimeInterval!
+    private var gridCellSize: CGSize!
+    private var minimumHorizontalSpacing: CGFloat!
+    private var minimumVerticalSpacing: CGFloat!
 
+    
+    private enum TextFieldNames {
+        static let animationDuration = "Animation Duration"
+        static let gridCellWidth = "Cell's Width"
+        static let gridCellHeight = "Cell's Height"
+        static let minHorizontalSpacing = "Minimum Horizontal Spacing"
+        static let minVerticalSpacing = "Minimum Vertical Spacing"
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setPreviousValues()
+        presetValues()
         setKeyboardHideGesture()
-        setBackButton()
+    }
+    func set(animationDuration: TimeInterval, gridCellSize: CGSize, minHorizontalSpacing: CGFloat, minVerticalSpacing: CGFloat) {
+        self.animationDuration = animationDuration
+        self.gridCellSize = gridCellSize
+        self.minimumHorizontalSpacing = minHorizontalSpacing
+        self.minimumVerticalSpacing = minVerticalSpacing
     }
     
+}
+
+extension ConfigurationViewController {
     
-    func setBackButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "< Back", style: .plain, target: self, action: #selector(backButtonTapped))
-    }
-    
-    @objc func backButtonTapped() {
-        
-        if isSettingsValid() {
-            delegate?.setSettings(animationDuration: animationDuration, elementSize: elementSize, horizontalSpacing: minimumHorizontalSpacing, verticalSpacing: minimumVerticalSpacing)
-            navigationController?.popViewController(animated: true)
-        }
-    }
-    
-    func setKeyboardHideGesture(){
+    private func setKeyboardHideGesture(){
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         tapGesture.numberOfTapsRequired = 1
         view.addGestureRecognizer(tapGesture)
     }
+    private func presetValues() {
+        animationDurationTextField.text = "\(animationDuration ?? 0)"
+        gridCellWidthTextField.text = String(format: "%.2f", (gridCellSize ?? CGSize.zero).width)
+        gridCellHeightTextField.text = String(format: "%.2f", (gridCellSize ?? CGSize.zero).height)
+        minHorizontalSpacingTextField.text = "\(minimumHorizontalSpacing ?? 0)"
+        minVerticalSpacingTextField.text = "\(minimumVerticalSpacing ?? 0)"
+    }
     
+}
+
+extension ConfigurationViewController {
     
-    @objc func hideKeyboard() {
+    private func parseInput(for textField: UITextField) -> Double? {
+        return Double(textField.text!)
+    }
+    
+    private func validateAnimationDuration() throws {
+        guard let value = parseInput(for: animationDurationTextField)  else { throw ConfigurationError.wrongInput(setting: TextFieldNames.animationDuration) }
+        animationDuration = value
+    }
+    private func validateGridElementWidth() throws {
+        guard let value = parseInput(for: gridCellWidthTextField)  else { throw ConfigurationError.wrongInput(setting: TextFieldNames.gridCellWidth) }
+        gridCellSize.width = CGFloat(value)
+    }
+    private func validateGridElementHieght() throws {
+        guard let value = parseInput(for: gridCellHeightTextField)  else { throw ConfigurationError.wrongInput(setting: TextFieldNames.gridCellHeight) }
+        gridCellSize.height = CGFloat(value)
+    }
+    private func validateMinHorizontalSpacing() throws {
+        guard let value = parseInput(for: minHorizontalSpacingTextField)  else { throw ConfigurationError.wrongInput(setting: TextFieldNames.minHorizontalSpacing) }
+        minimumHorizontalSpacing = CGFloat(value)
+    }
+    private func validateMinVerticalSpacing() throws {
+        guard let value = parseInput(for: minVerticalSpacingTextField)  else { throw ConfigurationError.wrongInput(setting: TextFieldNames.minVerticalSpacing) }
+        minimumVerticalSpacing = CGFloat(value)
+    }
+    
+}
+
+extension ConfigurationViewController {
+    
+    private func validateSettings() throws {
+        var invalidInputSettings: String!
+    
+        do { try validateAnimationDuration() }
+        catch ConfigurationError.wrongInput(let setting) { invalidInputSettings = setting }
+        catch {}
+        do { try validateGridElementWidth() }
+        catch ConfigurationError.wrongInput(let setting) { invalidInputSettings = invalidInputSettings + "," + setting }
+        catch {}
+        do { try validateGridElementHieght() }
+        catch ConfigurationError.wrongInput(let setting) { invalidInputSettings = invalidInputSettings + "," + setting }
+        catch {}
+        do { try validateMinHorizontalSpacing() }
+        catch ConfigurationError.wrongInput(let setting) { invalidInputSettings = invalidInputSettings + "," + setting }
+        catch {}
+        do { try validateMinVerticalSpacing() }
+        catch ConfigurationError.wrongInput(let setting) { invalidInputSettings = invalidInputSettings + "," + setting }
+        catch {}
+        
+        guard invalidInputSettings == nil  else { throw ConfigurationError.validation(invalidInputSettings) }
+    }
+    
+}
+
+extension ConfigurationViewController {
+    
+    @IBAction private func backButtonTapped() {
+        do {
+            try validateSettings()
+            delegate?.update(animationDuration: animationDuration, gridCellSize: gridCellSize, minHorizontalSpacing: minimumHorizontalSpacing, minVerticalSpacing: minimumVerticalSpacing)
+            navigationController?.popViewController(animated: true)
+        }
+        catch ConfigurationError.validation(let invalidInputSettings) { showInvalidInputAlert(textFieldNames: invalidInputSettings) }
+        catch  {}
+    }
+    @objc private func hideKeyboard() {
         self.view.endEditing(true)
     }
-    
-    
-    func setPreviousValues() {
-        animationDurationTextField.text = "\(animationDuration ?? 0)"
-        elementCellWidthTextField.text = String(format: "%.2f", (elementSize ?? CGSize.zero).width)
-        elementCellHeightTextField.text = String(format: "%.2f", (elementSize ?? CGSize.zero).height)
-        horizontalSpacingTextField.text = "\(minimumHorizontalSpacing ?? 0)"
-        verticalSpacingTextField.text = "\(minimumVerticalSpacing ?? 0)"
+    private func showInvalidInputAlert(textFieldNames: String) {
+        present(UIAlertController.create(title: "Wrong Values Set", message: "\(textFieldNames) have wrong values set. We have reset it to the default values"), animated: true, completion: nil)
     }
     
 }
-
-
-extension ConfigurationViewController: UITextFieldDelegate {
-    
-    func showAlertView(textFieldNames: String) {
-        let alertController = UIAlertController(title: "Wrong Values Set", message: "\(textFieldNames) have wrong values set. We have reset it to the default values", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    func isSettingsValid() -> Bool {
-        var textFieldNames: String!
-        if !isInputValid(textField: animationDurationTextField) {
-            textFieldNames = "Animation Duration"
-        }
-        else {
-           animationDuration = Double(animationDurationTextField.text!)
-        }
-        if !isInputValid(textField: elementCellWidthTextField) {
-            textFieldNames = textFieldNames + "," + "Element Width"
-        }
-        else {
-            elementSize.width = CGFloat(Double(elementCellWidthTextField.text!)!)
-        }
-        if !isInputValid(textField: elementCellHeightTextField) {
-            textFieldNames = textFieldNames + "," + "Element Height"
-        }
-        else {
-            elementSize.height = CGFloat(Double(elementCellHeightTextField.text!)!)
-        }
-        if !isInputValid(textField: horizontalSpacingTextField) {
-            textFieldNames = textFieldNames + "," + "Minimum Horizontal Spacing"
-        }
-        else {
-            minimumHorizontalSpacing = CGFloat(Double(horizontalSpacingTextField.text!)!)
-        }
-        if !isInputValid(textField: verticalSpacingTextField) {
-            textFieldNames = textFieldNames + "," + "Minimum Vertical Spacing"
-        }
-        else {
-            minimumVerticalSpacing = CGFloat(Double(verticalSpacingTextField.text!)!)
-        }
-        
-        if textFieldNames == nil {
-            return true
-        } else {
-            showAlertView(textFieldNames: textFieldNames)
-            return false
-        }
-    }
-    
-    func isInputValid(textField: UITextField) -> Bool {
-        return Double(textField.text!) != nil
-    }
-    
-}
-
-
 

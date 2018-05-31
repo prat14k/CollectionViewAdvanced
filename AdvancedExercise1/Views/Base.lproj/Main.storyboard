@@ -116,7 +116,7 @@
                     <navigationItem key="navigationItem" id="RtN-og-6E4">
                         <barButtonItem key="rightBarButtonItem" title="Configure" id="5hC-7b-x9h">
                             <connections>
-                                <segue destination="tj5-2A-Tlu" kind="show" id="TrB-sD-z25"/>
+                                <segue destination="tj5-2A-Tlu" kind="show" identifier="configurationWindowSegue" id="TrB-sD-z25"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -246,12 +246,19 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uj2-Xb-KFd"/>
                     </view>
+                    <navigationItem key="navigationItem" id="hos-t6-X2o">
+                        <barButtonItem key="leftBarButtonItem" title=" ←  " id="LnV-51-vVz" userLabel="Back">
+                            <connections>
+                                <action selector="backButtonTapped" destination="tj5-2A-Tlu" id="PYL-5l-rja"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="animationDurationTextField" destination="YUl-Xh-T5L" id="BVj-vg-8Mb"/>
-                        <outlet property="elementCellHeightTextField" destination="mhg-7r-we4" id="n77-6p-bRH"/>
-                        <outlet property="elementCellWidthTextField" destination="Dnr-K9-RkG" id="zzN-mn-JAO"/>
-                        <outlet property="horizontalSpacingTextField" destination="OTO-53-3n7" id="W0u-uz-fIl"/>
-                        <outlet property="verticalSpacingTextField" destination="cS3-vK-xtl" id="UtX-kO-ULs"/>
+                        <outlet property="gridCellHeightTextField" destination="mhg-7r-we4" id="wmQ-CA-sbV"/>
+                        <outlet property="gridCellWidthTextField" destination="Dnr-K9-RkG" id="I0I-3B-0l8"/>
+                        <outlet property="minHorizontalSpacingTextField" destination="OTO-53-3n7" id="ewP-85-gIW"/>
+                        <outlet property="minVerticalSpacingTextField" destination="cS3-vK-xtl" id="UZ1-Eh-tqY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eHE-0k-gcn" userLabel="First Responder" sceneMemberID="firstResponder"/>

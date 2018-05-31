@@ -14,6 +14,9 @@
 		ABE1D20120BE6E3000559D34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABE1D20020BE6E3000559D34 /* Assets.xcassets */; };
 		ABE1D20420BE6E3000559D34 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABE1D20220BE6E3000559D34 /* LaunchScreen.storyboard */; };
 		ABE1D20C20BE731900559D34 /* LetterCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE1D20B20BE731900559D34 /* LetterCollectionCell.swift */; };
+		ABEC019320BFC091009F9A37 /* AlertViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC019220BFC091009F9A37 /* AlertViewExtention.swift */; };
+		ABEC019520BFCC70009F9A37 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC019420BFCC70009F9A37 /* StringExtension.swift */; };
+		ABEC019720BFE20D009F9A37 /* SegueIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC019620BFE20D009F9A37 /* SegueIdentifiers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		ABE1D20320BE6E3000559D34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ABE1D20520BE6E3000559D34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ABE1D20B20BE731900559D34 /* LetterCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterCollectionCell.swift; sourceTree = "<group>"; };
+		ABEC019220BFC091009F9A37 /* AlertViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewExtention.swift; sourceTree = "<group>"; };
+		ABEC019420BFCC70009F9A37 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		ABEC019620BFE20D009F9A37 /* SegueIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueIdentifiers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,15 +65,50 @@
 			isa = PBXGroup;
 			children = (
 				ABE1D1F920BE6E2E00559D34 /* AppDelegate.swift */,
-				ABE1D1FB20BE6E2E00559D34 /* GridViewController.swift */,
-				ABE1D1FD20BE6E2E00559D34 /* Main.storyboard */,
 				ABE1D20020BE6E3000559D34 /* Assets.xcassets */,
-				ABE1D20220BE6E3000559D34 /* LaunchScreen.storyboard */,
 				ABE1D20520BE6E3000559D34 /* Info.plist */,
-				ABE1D20B20BE731900559D34 /* LetterCollectionCell.swift */,
-				ABB8A73520BE878E00BB445A /* ConfigurationViewController.swift */,
+				ABEC019120BFC078009F9A37 /* Extensions */,
+				ABEC019020BFAD6E009F9A37 /* Constants */,
+				ABEC018F20BFAD31009F9A37 /* Views */,
+				ABEC018E20BFAD0A009F9A37 /* Classes */,
 			);
 			path = AdvancedExercise1;
+			sourceTree = "<group>";
+		};
+		ABEC018E20BFAD0A009F9A37 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				ABB8A73520BE878E00BB445A /* ConfigurationViewController.swift */,
+				ABE1D20B20BE731900559D34 /* LetterCollectionCell.swift */,
+				ABE1D1FB20BE6E2E00559D34 /* GridViewController.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		ABEC018F20BFAD31009F9A37 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ABE1D1FD20BE6E2E00559D34 /* Main.storyboard */,
+				ABE1D20220BE6E3000559D34 /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ABEC019020BFAD6E009F9A37 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				ABEC019620BFE20D009F9A37 /* SegueIdentifiers.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		ABEC019120BFC078009F9A37 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				ABEC019220BFC091009F9A37 /* AlertViewExtention.swift */,
+				ABEC019420BFCC70009F9A37 /* StringExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +184,9 @@
 			files = (
 				ABE1D20C20BE731900559D34 /* LetterCollectionCell.swift in Sources */,
 				ABB8A73620BE878E00BB445A /* ConfigurationViewController.swift in Sources */,
+				ABEC019520BFCC70009F9A37 /* StringExtension.swift in Sources */,
+				ABEC019320BFC091009F9A37 /* AlertViewExtention.swift in Sources */,
+				ABEC019720BFE20D009F9A37 /* SegueIdentifiers.swift in Sources */,
 				ABE1D1FC20BE6E2E00559D34 /* GridViewController.swift in Sources */,
 				ABE1D1FA20BE6E2E00559D34 /* AppDelegate.swift in Sources */,
 			);
