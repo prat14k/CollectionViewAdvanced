@@ -53,33 +53,33 @@ extension GridViewController: ConfigurablesProtocol {
 extension GridViewController {
     
     // Insert 3 items at the end
-    @IBAction private func operation1(_ sender: UIBarButtonItem!) {
+    @IBAction private func operation1() {
         _ = insertInCollection(items: 3, startingFrom: collectionViewDB.count)
     }
     
     // Delete 3 items at the end
-    @IBAction private func operation2(_ sender: UIBarButtonItem) {
+    @IBAction private func operation2() {
         _ = deleteFromCollection(items: 3, startingFrom: collectionViewDB.count - 3)
     }
     
     // Update item at index 2
-    @IBAction private func operation3(_ sender: UIBarButtonItem) {
+    @IBAction private func operation3() {
         _ = updateItem(at: 2)
     }
     
     // Move item "e" to the end
-    @IBAction private func operation4(_ sender: UIBarButtonItem) {
+    @IBAction private func operation4() {
         _ = find(element: "e", andMoveTo: collectionViewDB.count - 1)
     }
     
     // Delete 3 items at the beginning, then insert 3 items at the end
-    @IBAction private func operation5(_ sender: UIBarButtonItem) {
+    @IBAction private func operation5() {
         guard deleteFromCollection(items: 3)  else { return }
         _ = insertInCollection(items: 3, startingFrom: collectionViewDB.count)
     }
     
     // Insert 3 items at the end, then delete 3 items at the beginning
-    @IBAction private func operation6(_ sender: UIBarButtonItem) {
+    @IBAction private func operation6() {
         _ = insertInCollection(items: 3, startingFrom: collectionViewDB.count)
         _ = deleteFromCollection(items: 3)
     }

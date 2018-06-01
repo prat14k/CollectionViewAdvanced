@@ -18,48 +18,59 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="6xc-Jo-Jz2">
-                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
-                                <items>
-                                    <barButtonItem title="Op1" id="LnP-DS-kOM">
-                                        <connections>
-                                            <action selector="operation1:" destination="BYZ-38-t0r" id="dFR-iK-KCt"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Bew-Op-Tic"/>
-                                    <barButtonItem title="Op2" id="UFK-iB-Nhp">
-                                        <connections>
-                                            <action selector="operation2:" destination="BYZ-38-t0r" id="JOH-Ik-9Jt"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="XVG-jX-Wv5"/>
-                                    <barButtonItem title="Op3" id="Mdu-W0-0tY">
-                                        <connections>
-                                            <action selector="operation3:" destination="BYZ-38-t0r" id="WgK-DK-0qg"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ikg-4L-ZOm"/>
-                                    <barButtonItem title="Op4" id="9Iu-wq-0Dk">
-                                        <connections>
-                                            <action selector="operation4:" destination="BYZ-38-t0r" id="eBU-Ia-khJ"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="6d0-St-7rx"/>
-                                    <barButtonItem title="Op5" id="h9c-kW-Epc">
-                                        <connections>
-                                            <action selector="operation5:" destination="BYZ-38-t0r" id="ETc-vm-3gp"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="277-NF-gcQ"/>
-                                    <barButtonItem title="Op6" id="Tsp-Fe-Mk5">
-                                        <connections>
-                                            <action selector="operation6:" destination="BYZ-38-t0r" id="Rgd-MS-XKX"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="3Uw-BU-icN">
+                                <rect key="frame" x="0.0" y="64" width="62.5" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="7m0-fK-vh0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="In-3-End"/>
+                                <connections>
+                                    <action selector="operation1" destination="BYZ-38-t0r" eventType="touchUpInside" id="7pT-a5-NQL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Jp8-xN-9bR">
+                                <rect key="frame" x="62.5" y="64" width="62.5" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Del-3-End"/>
+                                <connections>
+                                    <action selector="operation2" destination="BYZ-38-t0r" eventType="touchUpInside" id="kSG-Ef-unm"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="LWE-59-Oz2">
+                                <rect key="frame" x="125" y="64" width="62.5" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Set-[2]"/>
+                                <connections>
+                                    <action selector="operation3" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nap-E4-0IG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="slV-G1-KHD">
+                                <rect key="frame" x="187.5" y="64" width="62.5" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Mv-'e'-end"/>
+                                <connections>
+                                    <action selector="operation4" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ezy-W5-6UZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="sKL-RM-Egk">
+                                <rect key="frame" x="250" y="64" width="62.5" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Del-3-Beg/In-3-End"/>
+                                <connections>
+                                    <action selector="operation5" destination="BYZ-38-t0r" eventType="touchUpInside" id="wy8-KE-gUx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="tCP-xP-kho">
+                                <rect key="frame" x="312.5" y="64" width="62.5" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="In-3-End/Del-3-Beg"/>
+                                <connections>
+                                    <action selector="operation6" destination="BYZ-38-t0r" eventType="touchUpInside" id="b3t-Ia-7UM"/>
+                                </connections>
+                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5pH-bF-0Kf">
-                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
+                                <rect key="frame" x="0.0" y="119" width="375" height="548"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Zao-pL-DO3">
                                     <size key="itemSize" width="50" height="50"/>
@@ -103,12 +114,32 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6xc-Jo-Jz2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="94y-vo-4r6"/>
+                            <constraint firstItem="tCP-xP-kho" firstAttribute="width" secondItem="sKL-RM-Egk" secondAttribute="width" id="9Fa-oa-pE2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5pH-bF-0Kf" secondAttribute="trailing" id="Bez-z0-5C6"/>
-                            <constraint firstItem="6xc-Jo-Jz2" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="CX7-XB-DPu"/>
-                            <constraint firstItem="6xc-Jo-Jz2" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Hhn-8U-SbG"/>
+                            <constraint firstItem="slV-G1-KHD" firstAttribute="centerY" secondItem="LWE-59-Oz2" secondAttribute="centerY" id="Dej-3Q-boX"/>
+                            <constraint firstItem="3Uw-BU-icN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="F19-M5-mzQ"/>
+                            <constraint firstItem="Jp8-xN-9bR" firstAttribute="leading" secondItem="3Uw-BU-icN" secondAttribute="trailing" id="Hwl-Tc-H1w"/>
+                            <constraint firstItem="sKL-RM-Egk" firstAttribute="height" secondItem="slV-G1-KHD" secondAttribute="height" id="JD2-E0-a1m"/>
+                            <constraint firstItem="slV-G1-KHD" firstAttribute="width" secondItem="LWE-59-Oz2" secondAttribute="width" id="Jtd-qc-rDV"/>
+                            <constraint firstItem="sKL-RM-Egk" firstAttribute="centerY" secondItem="slV-G1-KHD" secondAttribute="centerY" id="KbN-dT-EzQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5pH-bF-0Kf" secondAttribute="bottom" id="NhD-6d-m55"/>
-                            <constraint firstItem="5pH-bF-0Kf" firstAttribute="top" secondItem="6xc-Jo-Jz2" secondAttribute="bottom" id="XQA-qn-3Ka"/>
+                            <constraint firstItem="Jp8-xN-9bR" firstAttribute="centerY" secondItem="3Uw-BU-icN" secondAttribute="centerY" id="O48-OC-HHW"/>
+                            <constraint firstItem="5pH-bF-0Kf" firstAttribute="top" secondItem="3Uw-BU-icN" secondAttribute="bottom" constant="5" id="Omf-L2-shm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tCP-xP-kho" secondAttribute="trailing" id="PMp-bx-JPa"/>
+                            <constraint firstItem="LWE-59-Oz2" firstAttribute="leading" secondItem="Jp8-xN-9bR" secondAttribute="trailing" id="QYc-LP-ReG"/>
+                            <constraint firstItem="LWE-59-Oz2" firstAttribute="centerY" secondItem="Jp8-xN-9bR" secondAttribute="centerY" id="T38-mP-neE"/>
+                            <constraint firstItem="slV-G1-KHD" firstAttribute="height" secondItem="LWE-59-Oz2" secondAttribute="height" id="TL9-66-yRO"/>
+                            <constraint firstItem="sKL-RM-Egk" firstAttribute="trailing" secondItem="tCP-xP-kho" secondAttribute="leading" id="Tp8-n1-EYa"/>
+                            <constraint firstItem="Jp8-xN-9bR" firstAttribute="width" secondItem="3Uw-BU-icN" secondAttribute="width" id="VY9-HQ-YYQ"/>
+                            <constraint firstItem="3Uw-BU-icN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XxX-M5-L6t"/>
+                            <constraint firstItem="slV-G1-KHD" firstAttribute="leading" secondItem="LWE-59-Oz2" secondAttribute="trailing" id="aT5-h9-5zf"/>
+                            <constraint firstItem="tCP-xP-kho" firstAttribute="centerY" secondItem="sKL-RM-Egk" secondAttribute="centerY" id="gVx-3d-3F9"/>
+                            <constraint firstItem="tCP-xP-kho" firstAttribute="height" secondItem="sKL-RM-Egk" secondAttribute="height" id="gy6-zw-TG9"/>
+                            <constraint firstItem="LWE-59-Oz2" firstAttribute="width" secondItem="Jp8-xN-9bR" secondAttribute="width" id="lIT-0i-P1R"/>
+                            <constraint firstItem="sKL-RM-Egk" firstAttribute="width" secondItem="slV-G1-KHD" secondAttribute="width" id="lqb-bu-GWK"/>
+                            <constraint firstItem="Jp8-xN-9bR" firstAttribute="height" secondItem="3Uw-BU-icN" secondAttribute="height" id="mcJ-RD-lc4"/>
+                            <constraint firstItem="LWE-59-Oz2" firstAttribute="height" secondItem="Jp8-xN-9bR" secondAttribute="height" id="pcb-3w-UuO"/>
+                            <constraint firstItem="sKL-RM-Egk" firstAttribute="leading" secondItem="slV-G1-KHD" secondAttribute="trailing" id="xaQ-vQ-hD2"/>
                             <constraint firstItem="5pH-bF-0Kf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yb9-4g-FOQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
