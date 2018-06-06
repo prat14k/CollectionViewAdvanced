@@ -10,8 +10,8 @@ import UIKit
 
 
 enum ConfigurationError: Error {
-    case wrongInput(setting: String)
-    case validation(String)
+    case wrongInput(settings: String)
+    case validation(error: String)
 }
 
 protocol ConfigurablesProtocol: NSObjectProtocol {
@@ -73,59 +73,26 @@ extension ConfigurationViewController {
         minVerticalSpacingTextField.text = "\(minimumVerticalSpacing ?? 0)"
     }
     
-}
-
-extension ConfigurationViewController {
-    
-    private func parseInput(for textField: UITextField) -> Double? {
-        return Double(textField.text!)
-    }
-    
-    private func validateAnimationDuration() throws {
-        guard let value = parseInput(for: animationDurationTextField)  else { throw ConfigurationError.wrongInput(setting: TextFieldNames.animationDuration) }
-        animationDuration = value
-    }
-    private func validateGridElementWidth() throws {
-        guard let value = parseInput(for: gridCellWidthTextField)  else { throw ConfigurationError.wrongInput(setting: TextFieldNames.gridCellWidth) }
-        gridCellSize.width = CGFloat(value)
-    }
-    private func validateGridElementHieght() throws {
-        guard let value = parseInput(for: gridCellHeightTextField)  else { throw ConfigurationError.wrongInput(setting: TextFieldNames.gridCellHeight) }
-        gridCellSize.height = CGFloat(value)
-    }
-    private func validateMinHorizontalSpacing() throws {
-        guard let value = parseInput(for: minHorizontalSpacingTextField)  else { throw ConfigurationError.wrongInput(setting: TextFieldNames.minHorizontalSpacing) }
-        minimumHorizontalSpacing = CGFloat(value)
-    }
-    private func validateMinVerticalSpacing() throws {
-        guard let value = parseInput(for: minVerticalSpacingTextField)  else { throw ConfigurationError.wrongInput(setting: TextFieldNames.minVerticalSpacing) }
-        minimumVerticalSpacing = CGFloat(value)
+    private func updateSavedSettings() {
+        animationDuration = parseInput(for: animationDurationTextField.text) ?? 0
+        gridCellSize = CGSize(width: parseInput(for: gridCellWidthTextField.text) ?? 0, height: parseInput(for: gridCellHeightTextField.text) ?? 0)
+        minimumHorizontalSpacing = CGFloat(parseInput(for: minHorizontalSpacingTextField.text) ?? 0)
+        minimumVerticalSpacing = CGFloat(parseInput(for: minVerticalSpacingTextField.text) ?? 0)
     }
     
 }
 
-extension ConfigurationViewController {
+
+extension ConfigurationViewController: Validator {
     
-    private func validateSettings() throws {
-        var invalidInputSettings: String!
-    
-        do { try validateAnimationDuration() }
-        catch ConfigurationError.wrongInput(let setting) { invalidInputSettings = setting }
-        catch {}
-        do { try validateGridElementWidth() }
-        catch ConfigurationError.wrongInput(let setting) { invalidInputSettings = invalidInputSettings + "," + setting }
-        catch {}
-        do { try validateGridElementHieght() }
-        catch ConfigurationError.wrongInput(let setting) { invalidInputSettings = invalidInputSettings + "," + setting }
-        catch {}
-        do { try validateMinHorizontalSpacing() }
-        catch ConfigurationError.wrongInput(let setting) { invalidInputSettings = invalidInputSettings + "," + setting }
-        catch {}
-        do { try validateMinVerticalSpacing() }
-        catch ConfigurationError.wrongInput(let setting) { invalidInputSettings = invalidInputSettings + "," + setting }
-        catch {}
-        
-        guard invalidInputSettings == nil  else { throw ConfigurationError.validation(invalidInputSettings) }
+    private func createValidationFields() -> [ValidationFields] {
+        return [
+            ValidationFields(text: animationDurationTextField.text, settingName: TextFieldNames.animationDuration),
+            ValidationFields(text: gridCellWidthTextField.text, settingName: TextFieldNames.gridCellWidth),
+            ValidationFields(text: gridCellHeightTextField.text, settingName: TextFieldNames.gridCellHeight),
+            ValidationFields(text: minHorizontalSpacingTextField.text, settingName: TextFieldNames.minHorizontalSpacing),
+            ValidationFields(text: minVerticalSpacingTextField.text, settingName: TextFieldNames.minVerticalSpacing)
+        ]
     }
     
 }
@@ -134,19 +101,27 @@ extension ConfigurationViewController {
     
     @IBAction private func backButtonTapped() {
         do {
-            try validateSettings()
+            try validate(fields: createValidationFields())
+            updateSavedSettings()
             delegate?.update(animationDuration: animationDuration, gridCellSize: gridCellSize, minHorizontalSpacing: minimumHorizontalSpacing, minVerticalSpacing: minimumVerticalSpacing)
             navigationController?.popViewController(animated: true)
         }
-        catch ConfigurationError.validation(let invalidInputSettings) { showInvalidInputAlert(textFieldNames: invalidInputSettings) }
-        catch  {}
+        catch ConfigurationError.wrongInput(let invalidInputSettings) { showInvalidInputAlert(textFieldNames: invalidInputSettings) }
+        catch {
+            presentSimpleAlert(title: "Error", message: error.localizedDescription)
+        }
     }
+    
     @objc private func hideKeyboard() {
         self.view.endEditing(true)
     }
+
+}
+
+extension ConfigurationViewController {
+    
     private func showInvalidInputAlert(textFieldNames: String) {
-        present(UIAlertController.create(title: "Wrong Values Set", message: "\(textFieldNames) have wrong values set. We have reset it to the default values"), animated: true, completion: nil)
+        presentSimpleAlert(title: "Wrong Values Set", message: "\(textFieldNames) have wrong values set. Please correct them")
     }
     
 }
-

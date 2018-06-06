@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ABA168AF20C7B4E700028007 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA168AE20C7B4E700028007 /* Validator.swift */; };
+		ABA168B120C7D16400028007 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA168B020C7D16400028007 /* ArrayExtension.swift */; };
+		ABA168B320C7D19200028007 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA168B220C7D19200028007 /* Extensions.swift */; };
 		ABB8A73620BE878E00BB445A /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB8A73520BE878E00BB445A /* ConfigurationViewController.swift */; };
 		ABE1D1FA20BE6E2E00559D34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE1D1F920BE6E2E00559D34 /* AppDelegate.swift */; };
 		ABE1D1FC20BE6E2E00559D34 /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE1D1FB20BE6E2E00559D34 /* GridViewController.swift */; };
@@ -20,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ABA168AE20C7B4E700028007 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		ABA168B020C7D16400028007 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		ABA168B220C7D19200028007 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		ABB8A73520BE878E00BB445A /* ConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
 		ABE1D1F620BE6E2E00559D34 /* AdvancedExercise1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdvancedExercise1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABE1D1F920BE6E2E00559D34 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +77,7 @@
 				ABEC019020BFAD6E009F9A37 /* Constants */,
 				ABEC018F20BFAD31009F9A37 /* Views */,
 				ABEC018E20BFAD0A009F9A37 /* Classes */,
+				ABA168AE20C7B4E700028007 /* Validator.swift */,
 			);
 			path = AdvancedExercise1;
 			sourceTree = "<group>";
@@ -107,6 +114,8 @@
 			children = (
 				ABEC019220BFC091009F9A37 /* AlertViewExtention.swift */,
 				ABEC019420BFCC70009F9A37 /* StringExtension.swift */,
+				ABA168B020C7D16400028007 /* ArrayExtension.swift */,
+				ABA168B220C7D19200028007 /* Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -182,9 +191,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABA168AF20C7B4E700028007 /* Validator.swift in Sources */,
 				ABE1D20C20BE731900559D34 /* LetterCollectionCell.swift in Sources */,
 				ABB8A73620BE878E00BB445A /* ConfigurationViewController.swift in Sources */,
+				ABA168B120C7D16400028007 /* ArrayExtension.swift in Sources */,
 				ABEC019520BFCC70009F9A37 /* StringExtension.swift in Sources */,
+				ABA168B320C7D19200028007 /* Extensions.swift in Sources */,
 				ABEC019320BFC091009F9A37 /* AlertViewExtention.swift in Sources */,
 				ABEC019720BFE20D009F9A37 /* SegueIdentifiers.swift in Sources */,
 				ABE1D1FC20BE6E2E00559D34 /* GridViewController.swift in Sources */,

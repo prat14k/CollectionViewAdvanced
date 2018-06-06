@@ -14,4 +14,12 @@ extension String {
         let char = 65 + arc4random_uniform(26)
         return String(Character(Unicode.Scalar(char)!))
     }
+    
+    static func random(letters n: Int) -> [String] {
+        var array = [String]()
+        for _ in 0..<n {
+            array.append(String.randomUpperCaseLetter)
+        }
+        return array
+    }
 }

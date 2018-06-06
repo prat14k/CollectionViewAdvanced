@@ -54,77 +54,70 @@ extension GridViewController {
     
     // Insert 3 items at the end
     @IBAction private func operation1() {
-        _ = insertInCollection(items: 3, startingFrom: collectionViewDB.count)
+        insertInCollection(items: 3, startingFrom: collectionViewDB.count) ? () : presentSimpleAlert(title: "Error", message: "Operation Failed")
     }
     
     // Delete 3 items at the end
     @IBAction private func operation2() {
-        _ = deleteFromCollection(items: 3, startingFrom: collectionViewDB.count - 3)
+        deleteFromCollection(items: 3, startingFrom: collectionViewDB.count - 3) ? () : presentSimpleAlert(title: "Error", message: "Operation Failed")
     }
     
     // Update item at index 2
     @IBAction private func operation3() {
-        _ = updateItem(at: 2)
+        updateItem(at: 2) ? () : presentSimpleAlert(title: "Error", message: "Operation Failed")
     }
     
     // Move item "e" to the end
     @IBAction private func operation4() {
-        _ = find(element: "e", andMoveTo: collectionViewDB.count - 1)
+        find(element: "e", andMoveTo: collectionViewDB.count - 1) ? () : presentSimpleAlert(title: "Error", message: "Operation Failed")
     }
     
     // Delete 3 items at the beginning, then insert 3 items at the end
     @IBAction private func operation5() {
-        guard deleteFromCollection(items: 3)  else { return }
-        _ = insertInCollection(items: 3, startingFrom: collectionViewDB.count)
+        guard deleteFromCollection(items: 3)  else { return presentSimpleAlert(title: "Error", message: "Operation Delete Failed") }
+        insertInCollection(items: 3, startingFrom: collectionViewDB.count) ? () : presentSimpleAlert(title: "Error", message: "Operation Insert Failed")
     }
     
     // Insert 3 items at the end, then delete 3 items at the beginning
     @IBAction private func operation6() {
-        _ = insertInCollection(items: 3, startingFrom: collectionViewDB.count)
-        _ = deleteFromCollection(items: 3)
+        insertInCollection(items: 3, startingFrom: collectionViewDB.count) ? () : presentSimpleAlert(title: "Error", message: "Operation Insert Failed")
+        deleteFromCollection(items: 3)  ? () : presentSimpleAlert(title: "Error", message: "Operation Delete Failed")
     }
     
     
-    private func animateCollectionView(delay: TimeInterval = 0, changes: @escaping () -> ()) {
+    private func animateCollectionView(delay: TimeInterval = 0, changes: @escaping () -> (), completionHandler: ((Bool) -> ())? = nil) {
         UIView.animate(withDuration: animationDuration, delay: delay, options: [.curveLinear], animations: {
             changes()
-        }, completion: nil)
+        }, completion: completionHandler)
     }
     
 }
 
 
+
 extension GridViewController {
     
     private func insertInCollection(items n: Int = 1, startingFrom offset: Int = 0, section: Int = 0) -> Bool {
-        let count = collectionViewDB.count
-        guard offset >= 0, offset <= count  else { return false }
-        var dataToInsert = [String]() , indexPaths = [IndexPath]()
-        for i in 0..<n {
-            dataToInsert.append(String.randomUpperCaseLetter)
-            indexPaths.append(IndexPath(item: (offset + i), section: section))
-        }
-        collectionViewDB.insert(contentsOf: dataToInsert, at: offset)
+        let letters = String.random(letters: n)
+        let indexPaths = IndexPath.create(n: n, startingFrom: offset, section: section)
         
-        animateCollectionView { [weak self] in
+        guard collectionViewDB.insert(items: letters, startingFrom: offset)  else { return false }
+        
+        animateCollectionView(changes: { [weak self] in
             self?.gridCollectionView.insertItems(at: indexPaths)
-        }
+        })
         return true
     }
     
     
     private func deleteFromCollection(items n: Int = 1, startingFrom offset: Int = 0, section: Int = 0) -> Bool {
-        let count = collectionViewDB.count
-        guard offset >= 0, offset < count, (offset + n - 1) < count  else { return false }
-        var indexPaths = [IndexPath]()
-        for i in 0..<n {
-            indexPaths.append(IndexPath(item: (offset + i), section: section))
-        }
-        collectionViewDB.removeSubrange(offset..<(offset+n))
+        let indexPaths = IndexPath.create(n: n, startingFrom: offset, section: section)
         
-        animateCollectionView { [weak self] in
+        guard collectionViewDB.delete(elements: n, startingFrom: offset)  else { return false }
+        
+        animateCollectionView(changes: { [weak self] in
             self?.gridCollectionView.deleteItems(at: indexPaths)
-        }
+        })
         return true
     }
     
@@ -133,22 +126,20 @@ extension GridViewController {
 extension GridViewController {
     
     private func updateItem(at index: Int, section: Int = 0) -> Bool {
-        guard collectionViewDB.count > index  else { return false }
-        collectionViewDB[index] = String.randomUpperCaseLetter
+        guard collectionViewDB.update(at: index, with: String.randomUpperCaseLetter)  else { return false }
         
-        animateCollectionView { [weak self] in
+        animateCollectionView(changes: { [weak self] in
             self?.gridCollectionView.reloadItems(at: [IndexPath(item: index, section: section)])
-        }
+        })
         return true
     }
     private func find(element: String, oldSection: Int = 0, andMoveTo newIndex: Int, newSection: Int = 0) -> Bool {
-        guard newIndex >= 0, let oldIndex = collectionViewDB.index(of: element) else { return false }
-        collectionViewDB.remove(at: oldIndex)
-        collectionViewDB.insert(element, at: newIndex)
         
-        animateCollectionView { [weak self] in
+        guard let oldIndex = collectionViewDB.index(of: element), collectionViewDB.move(from: oldIndex, to: newIndex) else { return false }
+        
+        animateCollectionView(changes: { [weak self] in
             self?.gridCollectionView.moveItem(at: IndexPath(item: oldIndex, section: oldSection), to: IndexPath(item: newIndex, section: newSection))
-        }
+        })
         return true
     }
     
