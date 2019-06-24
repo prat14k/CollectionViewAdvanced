@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 extension IndexPath {
     
     static func create(n : Int = 1, startingFrom offset: Int = 0, section: Int = 0) -> [IndexPath] {
@@ -23,11 +21,3 @@ extension IndexPath {
 }
 
 
-extension UIViewController {
-    
-    func presentSimpleAlert(title: String? = nil, message: String? = nil, animated: Bool = true) {
-        let alertController = UIAlertController.create(title: title, message: message)
-        present(alertController, animated: animated, completion: nil)
-    }
-    
-}

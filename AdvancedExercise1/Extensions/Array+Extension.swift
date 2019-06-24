@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 extension Array {
     
     mutating func insert(items: [Element], startingFrom offset: Int = 0) -> Bool{
@@ -30,8 +29,6 @@ extension Array {
     }
     
 }
-
-
 
 extension Array where Element: Equatable {
     

@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 extension String {
     static var randomUpperCaseLetter: String {
         let char = 65 + arc4random_uniform(26)
